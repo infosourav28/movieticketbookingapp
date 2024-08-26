@@ -1,0 +1,31 @@
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall -Wextra -I./include -fPIC
+
+# LDFLAGS for creating the DLL, include -shared here
+DLL_LDFLAGS = -shared
+
+# LDFLAGS for creating the executable
+EXE_LDFLAGS = -L. -lbooking
+
+LIBRARY = booking.dll
+TARGET = booking_app.exe
+INSTALL_DIR = C:/Windows/System32
+
+SRC = $(wildcard src/*.cpp)
+OBJ = $(SRC:.cpp=.o)
+MAIN_SRC = main.cpp
+MAIN_OBJ = $(MAIN_SRC:.cpp=.o)
+
+all: $(TARGET)
+
+$(LIBRARY): $(OBJ)
+	$(CXX) $(CXXFLAGS) $(DLL_LDFLAGS) -o $(LIBRARY) $(OBJ)
+
+$(TARGET): $(MAIN_OBJ) $(LIBRARY)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(MAIN_OBJ) $(EXE_LDFLAGS)
+
+install: $(LIBRARY)
+	cmd /c copy $(LIBRARY) $(INSTALL_DIR)
+
+clean:
+	rm -f $(OBJ) $(MAIN_OBJ) $(LIBRARY) $(TARGET)
