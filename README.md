@@ -1,7 +1,7 @@
 ### This application creates a library (libbooking.so in Linux/booking.dll in Windows) which can be used/integrated with an embedded/CLI application
 
-There is also a main function in **main.cpp** file which can be used as a reference/guide for API invocation. For detailed API documentation please refer
-* ### APIDOC.md file.
+There is also a main function in **main.cpp** file which can be used as a reference/guide for API invocation. For detailed API documentation please refer file
+* **APIDOC.md** :  [here](./APIDOC.md).
 
 If you are directly calling the library functions from another embedded/CLI application then you **must include in your cpp file the following header:**
 ```c++
