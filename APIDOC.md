@@ -23,16 +23,16 @@ This class is thread-safe, utilizing mutexes to protect shared resources.
 
 * **Description:** Associates a theater with a specific movie. This method also initializes seats for the specified movie in the given theater.
 * **Parameters:**
-movieTitle: The title of the movie.
+  * movieTitle: The title of the movie.
 theater: A shared_ptr to a Theater object to be associated with the movie.
 
 `bool bookSeats(const std::string& movieTitle, const std::string& theaterName, const std::string& seatId)`
 
 * **Description:** Books a single seat for a specific movie in a specific theater.
 * **Parameters:**
- * movieTitle: The title of the movie.
- * theaterName: The name of the theater.
- * seatId: The ID of the seat to be booked.
+     * movieTitle: The title of the movie.
+     * theaterName: The name of the theater.
+     * seatId: The ID of the seat to be booked.
 * **Returns:** true if the seat is successfully booked; false otherwise.
 
 `bool bookSeats(const std::string& movieTitle, const std::string& theaterName, const std::vector<std::string>& seatIds)`
