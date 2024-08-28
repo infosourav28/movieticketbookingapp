@@ -7,36 +7,36 @@ If you are directly calling the library functions from another embedded/CLI appl
 ```c++
 #include "booking_manager.hpp"
 ```
-To compile & run the application refer below:
+To compile & run the application refer below. There are **four ways** as following:
 
 ### 1. Steps to Compile after integrating with other embedded/CLI application (WITHOUT USING MAKEFILE) in Linux/Unix:
 
-Download the repository. go inside the repository folder.
+Clone the repository. go inside the repository folder.
 Open a terminal.
 
-1) To create the library **libbooking.so** do the following
+  * a) To create the library **libbooking.so** do the following
 ```bash
 g++ -fPIC -shared -o libbooking.so src/seat.cpp src/theater.cpp src/movie.cpp src/movie_factory.cpp src/theater_factory.cpp src/booking_manager.cpp -I./include
 ```
-2)Link the library to your application (Instead of main.cpp use your cpp file where you want to call APIS):
+  * b) Link the library to your application (Instead of main.cpp use your cpp file where you want to call APIS):
 ```bash
  g++ -o booking_app main.cpp -L. -lbooking -I./include
 ```
-3)Copy the generated library to local lib:
+  * c) Copy the generated library to local lib:
 ```bash
  sudo cp libbooking.so /usr/local/lib/
 ```
-4)After copying, you may need to update the linker cache with:
+  * d) After copying, you may need to update the linker cache with:
 ```bash
   sudo ldconfig
 ```
-5)run the application using :
+  * e) Run the application using :
 ```bash
  ./booking_app
 ```
 
 ### 2. Steps to run the application WITH MAKEFILE in Linux/Unix:
-Modify the Makefile inside the project as following:
+Clone the repository & go inside the repository project folder , then modify the Makefile inside the project as following:
 change the following line inside Makefile
 
 "MAIN_SRC = main.cpp"
@@ -88,7 +88,7 @@ There is NO WARRANTY, to the extent permitted by law.
   * Please refer the **main.cpp** and **APIDOC.md** file for how to invoke API functions
 
 * ### Steps :
-  * Go to repository project folder, replace the content of the  **Makefile** with content of **Makefile - STABLE FOR WINDOWS**
+  * Clone the repository & go inside the repository project folder, replace all the content of the  **Makefile** with content of **Makefile-STABLE FOR WINDOWS**
   * You can Modify the Makefile inside the project as following: change the following line inside Makefile
   MAIN_SRC = main.cpp
 
@@ -109,4 +109,27 @@ There is NO WARRANTY, to the extent permitted by law.
   * Run the application :Please Ensure that **booking.dll** is either in the same directory as your executable
   ```bash
    .\booking_app.exe
+   ```
+
+### 4. Steps to run the code irrespective of Operating system:
+  * Clone the repository & go inside the repository project folder, replace all the content of the  **Makefile** with content of **Makefile-COMBINED**
+  * If you **meet the Prerequisites mentioned in Step 3 for WINDOWS OS**, then
+
+  * open any terminal for eg: powershell/ Linux bash depending upon OS inside the repository project folder
+
+  * Enter the Clean command :
+  ```bash
+  make clean
+  ```
+  * Enter the build command :
+  ```bash
+   make
+   ```
+  * Run the application using following command if **windows OS:**
+  ```bash
+   .\booking_app.exe
+   ```
+  * OR  Run the application using following commands in **Linux:**
+  ```bash
+   ./booking_app
    ```
