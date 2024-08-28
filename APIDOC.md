@@ -39,16 +39,16 @@ theater: A shared_ptr to a Theater object to be associated with the movie.
 
 * **Description:** Books multiple seats for a specific movie in a specific theater.This is an overloaded function.
 * **Parameters:**
- * movieTitle: The title of the movie.
- * theaterName: The name of the theater.
- * seatIds: A vector of seat IDs to be booked.
+     * movieTitle: The title of the movie.
+     * theaterName: The name of the theater.
+     * seatIds: A vector of seat IDs to be booked.
 * **Returns:** true if all seats are successfully booked; false otherwise.
 
 `std::vector<std::shared_ptr<Seat>> getAvailableSeats(const std::string& movieTitle, const std::string& theaterName) const`
 * **Description:** Retrieves a list of all available seats for a particular movie in a particular theater.
 * **Parameters:**
- * movieTitle: The title of the movie.
- * theaterName: The name of the theater.
+     * movieTitle: The title of the movie.
+     * theaterName: The name of the theater.
 * **Returns:** A vector of shared_ptr to Seat objects representing the available seats. Returns an empty vector if the movie or theater is not found.
 
 `std::vector<std::string> getAllPlayingMovies() const`
