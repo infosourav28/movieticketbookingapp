@@ -157,43 +157,51 @@ There is NO WARRANTY, to the extent permitted by law.
   ```
 
   #### For Linux :
-    * There is a script **build.sh** ([contents here](./build.sh)) located inside the repository which has conan install , build and package commands inside it.
-    * Run the following commands for building.
-    ```bash
-    chmod +x build.sh
-    ./build.sh
-    ```
-    It will create a conan package **movieticketbookingapi/0.2@user/channel** in a Package Folder something similar like this :
-    ```bash
-    Package folder ~/.conan2/p/b/movied5b372be072e9/p
-    ```
-    * After running the script there will be a **build** folder which gets generated inside the repository. For running the code run the command as below
-    ```bash
-    ./build/booking_app
-    ```
-    There will be shared Library (**libbooking.so**) which will be generated inside **build** folder and copied to the **bin** folder of Package Folder.
-    ```bash
-    sourav@LAPTOP-G862M1F7:~$ ls ~/.conan2/p/b/movied5b372be072e9/p/bin
-    libbooking.so
-    ```
+
+  * There is a script **build.sh** ([contents here](./build.sh)) located inside the repository which has conan install , build and package commands inside it.
+  * Run the following commands for building.
+  ```bash
+  chmod +x build.sh
+  ./build.sh
+  ```
+  It will create a conan package **movieticketbookingapi/0.2@user/channel** in a Package Folder something similar like this :
+  ```bash
+
+  Package folder ~/.conan2/p/b/movied5b372be072e9/p
+
+  ```
+  * After running the script there will be a **build** folder which gets generated inside the repository. For running the code run the command as below
+  ```bash
+
+  ./build/booking_app
+
+  ```
+  There will be shared Library (**libbooking.so**) which will be generated inside **build** folder and copied to the **bin** folder of Package Folder.
+  ```bash
+
+  sourav@LAPTOP-G862M1F7:~$ ls ~/.conan2/p/b/movied5b372be072e9/p/bin
+  libbooking.so
+
+  ```
 
   #### For WINDOWS :
-    * There is a script **build.bat** ([contents here](./build.sh)) located inside the repository which has conan install , build and package commands inside it.
-    * Run the following commands for building.
-    ```bash
-    .\build.bat
-    ```
-    It will create a conan package **movieticketbookingapi/0.2@user/channel** in a Package Folder something similar like this :
-    ```bash
-    Package folder C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p
-    ```
-    * After running the build script there will be a  **build** folder which gets generated inside the repository. Inside the generated **build** folder there will be executable as well as the shared Library.  For running the code run the command as below
-    ```bash
-    .\build\booking_app.exe
-    ```
-    There will be shared Library (**libbooking.dll**) which will be copied to  the **bin** folder of Package Folder.
-    Navigate to the Package folder
-    ```powershell
-    C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p
-    ```
-    and there will be a **bin** folder inside that there will be shared library .
+
+  * There is a script **build.bat** ([contents here](./build.sh)) located inside the repository which has conan install , build and package commands inside it.
+  * Run the following commands for building.
+  ```bash
+  .\build.bat
+  ```
+  It will create a conan package **movieticketbookingapi/0.2@user/channel** in a Package Folder something similar like this :
+  ```bash
+  Package folder C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p
+  ```
+  * After running the build script there will be a  **build** folder which gets generated inside the repository. Inside the generated **build** folder there will be executable as well as the shared Library.  For running the code run the command as below
+  ```bash
+  .\build\booking_app.exe
+  ```
+  There will be shared Library (**libbooking.dll**) which will be copied to  the **bin** folder of Package Folder.
+  Navigate to the Package folder
+  ```bash
+  C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p
+  ```
+  and there will be a **bin** folder inside that there will be shared library .
