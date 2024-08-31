@@ -186,7 +186,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
   #### For WINDOWS :
 
-  * There is a script **build.bat** ([contents here](./build.sh)) located inside the repository which has conan install , build and package commands inside it.
+  * There is a script **build.bat** ([contents here](./build.bat)) located inside the repository which has conan install , build and package commands inside it.
   * Run the following commands for building.
   ```bash
   .\build.bat
@@ -202,6 +202,6 @@ There is NO WARRANTY, to the extent permitted by law.
   There will be shared Library (**libbooking.dll**) which will be copied to  the **bin** folder of Package Folder.
   Navigate to the Package folder
   ```bash
-  C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p
+  C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p\bin
   ```
-  and there will be a **bin** folder inside that there will be shared library .
+  and there will be shared library libbooking.dll .
