@@ -7,7 +7,7 @@ If you are directly calling the library functions from another embedded/CLI appl
 ```c++
 #include "booking_manager.hpp"
 ```
-To compile & run the application refer below. There are **four ways** as following:
+To compile & run the application refer below. There are **Five ways** as following:
 
 ### 1. Steps to Compile after integrating with other embedded/CLI application (WITHOUT USING MAKEFILE) in Linux/Unix:
 
@@ -133,3 +133,67 @@ There is NO WARRANTY, to the extent permitted by law.
   ```bash
    ./booking_app
    ```
+
+### 5. Steps to build & run the code using conan
+  * Clone the repository and go inside the repository project folder,
+  * In order to run the code using conan , you must have the conan & Cmake installed in your OS.
+  * You must have the following conan & Cmake version installed to your system. Please check the conan & Cmake version by opening any terminal for eg: Linux
+  ```bash
+  sourav@LAPTOP-G862M1F7:~$ cmake --version
+  cmake version 3.22.1
+
+  CMake suite maintained and supported by Kitware (kitware.com/cmake).
+  sourav@LAPTOP-G862M1F7:~$ conan --version
+  Conan version 2.7.0
+  ```
+  Powershell terminal in Windows
+  ```bash
+  PS S:\> conan --version
+  Conan version 2.7.0
+  PS S:\> cmake --version
+  cmake version 3.22.1
+
+  CMake suite maintained and supported by Kitware (kitware.com/cmake).
+  ```
+
+  #### For Linux :
+    * There is a script **build.sh** ([contents here](./build.sh)) located inside the repository which has conan install , build and package commands inside it.
+    * Run the following commands for building.
+    ```bash
+    chmod +x build.sh
+    ./build.sh
+    ```
+    It will create a conan package **movieticketbookingapi/0.2@user/channel** in a Package Folder something similar like this :
+    ```bash
+    Package folder ~/.conan2/p/b/movied5b372be072e9/p
+    ```
+    * After running the script there will be a **build** folder which gets generated inside the repository. For running the code run the command as below
+    ```bash
+    ./build/booking_app
+    ```
+    There will be shared Library (**libbooking.so**) which will be generated inside **build** folder and copied to the **bin** folder of Package Folder.
+    ```bash
+    sourav@LAPTOP-G862M1F7:~$ ls ~/.conan2/p/b/movied5b372be072e9/p/bin
+    libbooking.so
+    ```
+
+  #### For WINDOWS :
+    * There is a script **build.bat** ([contents here](./build.sh)) located inside the repository which has conan install , build and package commands inside it.
+    * Run the following commands for building.
+    ```bash
+    .\build.bat
+    ```
+    It will create a conan package **movieticketbookingapi/0.2@user/channel** in a Package Folder something similar like this :
+    ```bash
+    Package folder C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p
+    ```
+    * After running the build script there will be a  **build** folder which gets generated inside the repository. Inside the generated **build** folder there will be executable as well as the shared Library.  For running the code run the command as below
+    ```bash
+    .\build\booking_app.exe
+    ```
+    There will be shared Library (**libbooking.dll**) which will be copied to  the **bin** folder of Package Folder.
+    Navigate to the Package folder
+    ```powershell
+    C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p
+    ```
+    and there will be a **bin** folder inside that there will be shared library .
