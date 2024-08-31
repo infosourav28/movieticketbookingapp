@@ -75,6 +75,6 @@ class MovieTicketBooking(ConanFile):
 
 
     def package_info(self):
-        # Define how to use this package, e.g., libraries, headers, etc.
-        self.cpp_info.libs = ["booking_app_lib"]
+        self.cpp_info.libdirs = ["bin"]
+        self.cpp_info.libs = ["libbooking"]
 
