@@ -54,13 +54,19 @@ class MovieTicketBooking(ConanFile):
         print(f"Files in build directory: {os.listdir(build_dir)}")
 
         if self.settings.os == "Windows":
-            dll_file = "libbooking.dll"
+            if self.options.shared:
+                dll_file = "libbooking.dll"
+            else:
+                dll_file = "libbooking.a"
             if os.path.isfile(os.path.join(build_dir, dll_file)):
                 copy(self, dll_file, src=build_dir, dst=bin_dir)
             else:
                 raise Exception(f"{dll_file} not found in build directory")
         else:
-            so_file = "libbooking.so"
+            if self.options.shared:
+                so_file = "libbooking.so"
+            else:
+                so_file = "libbooking.a"
             so_file_path = os.path.join(build_dir, so_file)
             if os.path.isfile(so_file_path):
                 copy(self, so_file, src=build_dir, dst=bin_dir)
