@@ -1,0 +1,33 @@
+cmake_minimum_required(VERSION 3.15)
+project(booking)
+
+# Include the Conan toolchain file
+if (CMAKE_TOOLCHAIN_FILE)
+    include(${CMAKE_TOOLCHAIN_FILE})
+else()
+    message(FATAL_ERROR "CMAKE_TOOLCHAIN_FILE is not set. Ensure that Conan is installed correctly and you are running CMake from the correct build directory.")
+endif()
+
+# Specify the include directories
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# Define sources and include directories
+file(GLOB SOURCES
+    main.cpp
+    src/*.cpp
+)
+
+file(GLOB HEADERS
+    include/*.hpp
+	include/booking_manager.hpp
+)
+
+option(BUILD_SHARED_LIBS "Build shared libraries" ${BUILD_SHARED_LIBS})
+
+# Add shared library option
+add_library(booking ${SOURCES} ${HEADERS})
+
+add_executable(booking_app ${SOURCES} ${HEADERS})
+
+# Link libraries if necessary
+target_link_libraries(booking ${CONAN_LIBS})
