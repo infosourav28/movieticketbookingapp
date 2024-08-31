@@ -30,4 +30,4 @@ add_library(booking ${SOURCES} ${HEADERS})
 add_executable(booking_app ${SOURCES} ${HEADERS})
 
 # Link libraries if necessary
-target_link_libraries(booking ${CONAN_LIBS})
+target_link_libraries(booking_app booking)
