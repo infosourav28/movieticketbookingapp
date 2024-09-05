@@ -16,12 +16,26 @@ void BookingManager::addTheater(const std::string& movieTitle, std::shared_ptr<T
     std::lock_guard<std::mutex> lock(mutex);
     // Initialize seats for this movie in the theater if the movie exists in the application
     if(movies.find(movieTitle) != movies.end()){
-    	theater->initializeSeatsForMovie(movieTitle);
-	    theaters[movieTitle].emplace_back(theater);
+        auto& theaterlist = theaters[movieTitle];
+        //Check if the theater(passed as argument) already showing the movie
+        auto it = std::find_if(theaterlist.begin(),theaterlist.end(),
+                                [&theater](const std::shared_ptr<Theater>& existingTheater){
+                                    return existingTheater->getName() == theater->getName();
+                                });
+        if(it == theaterlist.end()) //Check, if the movie not running in the theater, then initialize seats
+        {
+            theater->initializeSeatsForMovie(movieTitle);
+            theaters[movieTitle].emplace_back(theater);
+        }
+        else
+        {
+            std::cout<<"This movie: "<<movieTitle<<" is already showing in Theater: "<<theater->getName()<<std::endl;
+        }	
+	    
     }
     else{
         std::cout<<"\nSORRY :( -Movie: '"<<movieTitle<<"' NOT Available in the system: Please Add it first:"<<std::endl;
-        throw std::runtime_error("Unfortunately...Movie NOT added in the system, PLEASE ADD THE MOVIE in application:");
+        throw std::runtime_error("Unfortunately...Movie NOT added in the back end, PLEASE ADD THE MOVIE in application:");
     }
 }
 
