@@ -13,7 +13,7 @@ void BookingManager::addMovie(std::shared_ptr<Movie> movie) {
 
 // Add a theater for a specific movie
 void BookingManager::addTheater(const std::string& movieTitle, std::shared_ptr<Theater> theater) {
-	std::lock_guard<std::mutex> lock(mutex);
+    std::lock_guard<std::mutex> lock(mutex);
     // Initialize seats for this movie in the theater if the movie exists in the application
     if(movies.find(movieTitle) != movies.end()){
     	theater->initializeSeatsForMovie(movieTitle);
@@ -131,7 +131,9 @@ std::vector<std::string> BookingManager::getTheatersShowingMovie(const std::stri
             theaterNames.push_back(theater->getName());
         }
     }
-
+    else {
+        std::cout<<"\nTheater NOT Found for movie:"<<movieTitle<<std::endl;
+    }
     return theaterNames;
 }
 
