@@ -30,7 +30,7 @@ void BookingManager::addTheater(const std::string& movieTitle, std::shared_ptr<T
 //Method to Book a single seat for a specific movie and theater
 bool BookingManager::bookSeats(const std::string& movieTitle, const std::string& theaterName, const std::string& seatId) {
     std::lock_guard<std::mutex> lock(mutex);
-    
+    //Check if the movie exists in the application
     auto movieIt = movies.find(movieTitle);
     if (movieIt == movies.end()) {
         std::cout<<"\nMovie NOT Available"<<std::endl;
