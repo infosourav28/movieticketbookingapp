@@ -15,13 +15,11 @@ void BookingManager::addMovie(std::shared_ptr<Movie> movie) {
 void BookingManager::addTheater(const std::string& movieTitle, std::shared_ptr<Theater> theater) {
 	std::lock_guard<std::mutex> lock(mutex);
     // Initialize seats for this movie in the theater if the movie exists in the application
-	if(movies.find(movieTitle) != movies.end())
-    {
-		theater->initializeSeatsForMovie(movieTitle);
-		theaters[movieTitle].emplace_back(theater);
+    if(movies.find(movieTitle) != movies.end()){
+    	theater->initializeSeatsForMovie(movieTitle);
+	    theaters[movieTitle].emplace_back(theater);
     }
-    else
-    {
+    else{
         std::cout<<"\nSORRY :( -Movie: '"<<movieTitle<<"' NOT Available in the system: Please Add it first:"<<std::endl;
         throw std::runtime_error("Unfortunately...Movie NOT added in the system, PLEASE ADD THE MOVIE in application:");
     }
