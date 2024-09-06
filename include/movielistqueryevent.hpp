@@ -8,17 +8,14 @@ private:
     std::vector<std::string> movieTitles;
 
 public:
-    MovieListQueryEvent(const std::vector<std::string>& titles)
-        : movieTitles(titles) {}
+    MovieListQueryEvent(const std::vector<std::string>& titles);
 
-    const std::vector<std::string>& getMovieTitles() const {
-        return movieTitles;
-    }
+    const std::vector<std::string>& getMovieTitles() const ;
+    
 
     // Implement the pure virtual function from Event
-    std::string getType() const override {
-        return "MovieListQueryEvent";
-    }
+    std::string getType() const override ;
+    
 };
 
 #endif
