@@ -8,18 +8,11 @@ private:
     std::vector<std::string> theaterNames;
 
 public:
-    TheaterListQueryEvent(const std::string& title, const std::vector<std::string>& theaters)
-        : movieTitle(title), theaterNames(theaters) {}
+    TheaterListQueryEvent(const std::string& title, const std::vector<std::string>& theaters);
 
-    const std::string& getMovieTitle() const {
-        return movieTitle;
-    }
+    const std::string& getMovieTitle() const;
 
-    const std::vector<std::string>& getTheaterNames() const {
-        return theaterNames;
-    }
+    const std::vector<std::string>& getTheaterNames() const;
 
-    std::string getType() const override {
-        return "TheaterListQueryEvent";
-    }
+    std::string getType() const override;
 };

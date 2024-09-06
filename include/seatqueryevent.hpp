@@ -13,23 +13,15 @@ private:
 
 public:
     SeatQueryEvent(const std::string& desc, const std::string& movie, const std::string& theater,
-                   const std::vector<std::shared_ptr<Seat>>& seats, size_t totalSeats)
-        : description(desc), movieTitle(movie), theaterName(theater), availableSeats(seats), totalAvailableSeats(totalSeats) {}
+                   const std::vector<std::shared_ptr<Seat>>& seats, size_t totalSeats);
 
-    std::string getDescription() const {
-        return description + ": Movie: " + movieTitle + ", Theater: " + theaterName + 
-               ", Total Available Seats: " + std::to_string(totalAvailableSeats);
-    }
+    std::string getDescription() const;
 
-    const std::vector<std::shared_ptr<Seat>>& getAvailableSeats() const {
-        return availableSeats;
-    }
+    const std::vector<std::shared_ptr<Seat>>& getAvailableSeats() const;
 
-    size_t getTotalAvailableSeats() const {
-        return totalAvailableSeats;
-    }
+    size_t getTotalAvailableSeats() const ;
 
-    std::string getType() const override { return "SeatQueryEvent"; }
+    std::string getType() const override;
 };
 
 #endif // SEAT_QUERY_EVENT_HPP

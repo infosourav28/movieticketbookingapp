@@ -9,13 +9,12 @@ class TheaterEvent : public Event {
     std::string description;
 
 public:
-    TheaterEvent(const std::string& desc, const std::string& movie, const std::string& theater)
-        : movieTitle(movie), theaterName(theater), description(desc) {}
+    TheaterEvent(const std::string& desc, const std::string& movie, const std::string& theater);
 
-    std::string getType() const override { return "TheaterEvent"; }
-    std::string getMovieTitle() const { return movieTitle; }
-    std::string getTheaterName() const { return theaterName; }
-    std::string getDescription() const { return description; }
+    std::string getType() const override ;
+    std::string getMovieTitle() const ;
+    std::string getTheaterName() const ;
+    std::string getDescription() const ;
 };
 
 #endif
