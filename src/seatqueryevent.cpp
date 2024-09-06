@@ -20,3 +20,11 @@ size_t SeatQueryEvent::getTotalAvailableSeats() const {
 std::string SeatQueryEvent::getType() const {
     return "SeatQueryEvent"; 
 }
+
+std::string SeatQueryEvent::getMovieTitle() const {
+    return movieTitle;
+}
+
+std::string SeatQueryEvent::getTheaterName() const {
+    return theaterName;
+}

@@ -22,6 +22,10 @@ public:
     size_t getTotalAvailableSeats() const ;
 
     std::string getType() const override;
+
+    // Getter methods
+    std::string getMovieTitle() const;
+    std::string getTheaterName() const;
 };
 
 #endif // SEAT_QUERY_EVENT_HPP
