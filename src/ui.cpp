@@ -43,7 +43,7 @@ void UI::handleBookingEvent(BookingEvent* event) {
 }
 
 
-
+// Handling SeatQueryEvent in the UI
 void UI::handleMovieListQueryEvent(const MovieListQueryEvent* event) {
     const auto& movieTitles = event->getMovieTitles();
     std::cout << "Currently Playing Movies:" << std::endl;
@@ -52,6 +52,7 @@ void UI::handleMovieListQueryEvent(const MovieListQueryEvent* event) {
     }
 }
 
+// Handling MovieListQueryEvent in the UI
 void UI::handleTheaterListQueryEvent(const TheaterListQueryEvent* event) {
     if (event) {
         // Extract movie title and theater names from the event
@@ -71,6 +72,7 @@ void UI::handleTheaterListQueryEvent(const TheaterListQueryEvent* event) {
     }
 }
 
+// Handling TheaterListQueryEvent in the UI
 void UI::handleSeatQueryEvent(const SeatQueryEvent* event) {
     // Extract details from the event
     std::string movieTitle = event->getMovieTitle();

@@ -10,7 +10,7 @@ class TheaterEvent : public Event {
 
 public:
     TheaterEvent(const std::string& desc, const std::string& movie, const std::string& theater);
-
+    // Getter methods
     std::string getType() const override ;
     std::string getMovieTitle() const ;
     std::string getTheaterName() const ;

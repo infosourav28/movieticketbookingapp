@@ -10,6 +10,7 @@ private:
 public:
     TheaterListQueryEvent(const std::string& title, const std::vector<std::string>& theaters);
 
+    // Getter methods
     const std::string& getMovieTitle() const;
 
     const std::vector<std::string>& getTheaterNames() const;

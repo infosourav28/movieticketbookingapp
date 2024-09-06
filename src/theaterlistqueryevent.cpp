@@ -3,6 +3,7 @@
 TheaterListQueryEvent::TheaterListQueryEvent(const std::string& title, const std::vector<std::string>& theaters)
     : movieTitle(title), theaterNames(theaters) {}
 
+// Getter methods
 const std::string& TheaterListQueryEvent::getMovieTitle() const {
     return movieTitle;
 }

@@ -3,6 +3,7 @@
 TheaterEvent::TheaterEvent(const std::string& desc, const std::string& movie, const std::string& theater)
     : movieTitle(movie), theaterName(theater), description(desc) {}
 
+// Getter methods
 std::string TheaterEvent::getType() const {
     return "TheaterEvent";
 }

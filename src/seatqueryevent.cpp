@@ -4,6 +4,7 @@ SeatQueryEvent::SeatQueryEvent(const std::string& desc, const std::string& movie
                    const std::vector<std::shared_ptr<Seat>>& seats, size_t totalSeats)
         : description(desc), movieTitle(movie), theaterName(theater), availableSeats(seats), totalAvailableSeats(totalSeats) {}
 
+// Getter methods
 std::string SeatQueryEvent::getDescription() const {
     return description + ": Movie: " + movieTitle + ", Theater: " + theaterName + 
             ", Total Available Seats: " + std::to_string(totalAvailableSeats);

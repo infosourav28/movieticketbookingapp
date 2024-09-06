@@ -18,10 +18,13 @@ private:
     // Handling BookingEvent in the UI
     void handleBookingEvent(BookingEvent* event);
 
+    // Handling SeatQueryEvent in the UI
     void handleSeatQueryEvent(const SeatQueryEvent* event);
-    
+
+    // Handling MovieListQueryEvent in the UI
     void handleMovieListQueryEvent(const MovieListQueryEvent* event);
 
+    // Handling TheaterListQueryEvent in the UI
     void handleTheaterListQueryEvent(const TheaterListQueryEvent* event);
 };
 

@@ -15,6 +15,7 @@ public:
     SeatQueryEvent(const std::string& desc, const std::string& movie, const std::string& theater,
                    const std::vector<std::shared_ptr<Seat>>& seats, size_t totalSeats);
 
+    // Getter methods
     std::string getDescription() const;
 
     const std::vector<std::shared_ptr<Seat>>& getAvailableSeats() const;
@@ -23,8 +24,8 @@ public:
 
     std::string getType() const override;
 
-    // Getter methods
     std::string getMovieTitle() const;
+    
     std::string getTheaterName() const;
 };
 
