@@ -5,10 +5,38 @@ BookingManager& BookingManager::getInstance() {
     static BookingManager instance;
     return instance;
 }
+
+//Implementation of Registering an observer
+void BookingManager::registerObserver(std::shared_ptr<ObserverBase> observer) {
+    std::lock_guard<std::mutex> lock(mutex);
+    observers.push_back(observer);
+}
+
+//Implementation of Removing an observer
+void BookingManager::removeObserver(std::shared_ptr<ObserverBase> observer) {
+    std::lock_guard<std::mutex> lock(mutex);
+    observers.erase(
+        std::remove_if(observers.begin(), observers.end(),
+            [&observer](const std::shared_ptr<ObserverBase>& o) {
+                return o == observer;
+            }),
+        observers.end());
+}
+
+// Implementation of Notify  all observers about an event
+void BookingManager::notify(Event* event) const {
+    for (auto& observer : observers) {
+        observer->update(event);
+    }
+}
+
 // Add a movie to the booking manager
 void BookingManager::addMovie(std::shared_ptr<Movie> movie) {
     std::lock_guard<std::mutex> lock(mutex);
     movies.insert(std::make_pair(movie->getTitle(),movie));
+    // Notify observers of the new movie event
+    MovieEvent movieEvent("New movie added:", movie->getTitle());
+    notify(&movieEvent);
 }
 
 // Add a theater for a specific movie
@@ -26,6 +54,10 @@ void BookingManager::addTheater(const std::string& movieTitle, std::shared_ptr<T
         {
             theater->initializeSeatsForMovie(movieTitle);
             theaters[movieTitle].emplace_back(theater);
+
+            // Notify observers of the new theater event
+            TheaterEvent theaterEvent("New theater added:", movieTitle, theater->getName());
+            notify(&theaterEvent);
         }
         else
         {
@@ -59,7 +91,13 @@ bool BookingManager::bookSeats(const std::string& movieTitle, const std::string&
         return false; // Theater not found
     }
 
-    return (*theaterIt)->bookSeat(movieTitle,seatId);
+    bool success = (*theaterIt)->bookSeat(movieTitle,seatId);
+    if (success) {
+        // Notify observers of the booking event
+        BookingEvent bookingEvent("Seat booked:", movieTitle, theaterName, seatId);
+        notify(&bookingEvent);
+    }
+    return success;
 }
 
 //Overloaded Function for Booking multiple seats for a specific movie and theater
@@ -89,6 +127,12 @@ bool BookingManager::bookSeats(const std::string& movieTitle, const std::string&
         if (!(*theaterIt)->bookSeat(movieTitle,seatId)) {
             return false; // Booking failed for one of the seats
         }
+    }
+
+    // Notify observers of the booking event (bulk booking)
+    for (const auto& seatId : seatIds) {
+        BookingEvent bookingEvent("Multiple Seats booked:", movieTitle, theaterName, seatId);
+        notify(&bookingEvent);
     }
 
     return true; // All seats booked successfully
@@ -121,16 +165,27 @@ std::vector<std::shared_ptr<Seat>> BookingManager::getAvailableSeats(const std::
 
     // Retrieve the available seats from the theater and return them
     availableSeats = (*theaterIt)->getAvailableSeats(movieTitle);
+    size_t totalAvailableSeats = availableSeats.size();
+
+    // Notify observers of the available seats
+    SeatQueryEvent seatQueryEvent("Available seats queried", movieTitle, theaterName, availableSeats, totalAvailableSeats);
+    notify(&seatQueryEvent);
+
     return availableSeats;
 }
 
 // Method to get all the playing movies
 std::vector<std::string> BookingManager::getAllPlayingMovies() const {
-        std::vector<std::string> movieTitles;
-        for (const auto& pair : movies) {
-            movieTitles.push_back(pair.first);
-        }
-        return movieTitles;
+    std::vector<std::string> movieTitles;
+    for (const auto& pair : movies) {
+        movieTitles.push_back(pair.first);
+    }
+
+    // Notify observers about the movie list query
+    MovieListQueryEvent movieListEvent(movieTitles);
+    notify(&movieListEvent);
+
+    return movieTitles;
 }
 
 // Method to get the names of all theaters showing a particular movie
@@ -148,6 +203,11 @@ std::vector<std::string> BookingManager::getTheatersShowingMovie(const std::stri
     else {
         std::cout<<"\nTheater NOT Found for movie:"<<movieTitle<<std::endl;
     }
+
+    // Notify observers about the theater list query
+    TheaterListQueryEvent theaterListEvent(movieTitle, theaterNames);
+    notify(&theaterListEvent);
+
     return theaterNames;
 }
 
