@@ -46,7 +46,7 @@ void UI::handleBookingEvent(BookingEvent* event) {
 // Handling SeatQueryEvent in the UI
 void UI::handleMovieListQueryEvent(const MovieListQueryEvent* event) {
     const auto& movieTitles = event->getMovieTitles();
-    std::cout << "Currently Playing Movies:" << std::endl;
+    std::cout << "UI Update: Currently Playing Movies:" << std::endl;
     for (const auto& title : movieTitles) {
         std::cout << title << std::endl;
     }
@@ -60,11 +60,11 @@ void UI::handleTheaterListQueryEvent(const TheaterListQueryEvent* event) {
         const std::vector<std::string>& theaterNames = event->getTheaterNames();
 
         // Update the UI or perform necessary actions
-        std::cout << "Theaters showing movie: " << movieTitle << std::endl;
+        std::cout << "UI Update: Theaters showing movie: " << movieTitle << std::endl;
         if (theaterNames.empty()) {
             std::cout << "No theaters found for this movie." << std::endl;
         } else {
-            std::cout << "Theaters showing '" << movieTitle << "':" << std::endl;
+            std::cout << "NOW showing '" << movieTitle << "' in :" << std::endl;
             for (const auto& name : theaterNames) {
                 std::cout << " - " << name << std::endl;
             }
