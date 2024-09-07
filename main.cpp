@@ -1,4 +1,5 @@
 #include "booking_manager.hpp"
+#include "ui.hpp"
 void setupBookingSystem() {
         BookingManager& manager = BookingManager::getInstance();
 
@@ -221,5 +222,38 @@ std::cout<<"-------------------------------------------------------------------"
     getAvailableSeats("Avatar", "Regal");
 
 std::cout<<"\n-------------------------------------------------------------------"<<std::endl;
+
+// Create a UI object and register it as an observer
+    std::shared_ptr<UI> ui = std::make_shared<UI>();
+    manager.registerObserver(ui);
+
+    // Perform operations that will trigger events
+    std::shared_ptr<Movie> newMovie = std::make_shared<Movie>("KILLER","Action", 140);
+    manager.addMovie(newMovie);
+std::cout<<"\n-------------------------------------------------------------------"<<std::endl;
+
+    std::shared_ptr<Theater> newTheater = std::make_shared<Theater>("IMAX");
+    manager.addTheater("KILLER", newTheater);
+
+    std::shared_ptr<Theater> newTheater2 = std::make_shared<Theater>("MOVIEONE");
+    manager.addTheater("KILLER", newTheater2);
+
+std::cout<<"\n-------------------------------------------------------------------"<<std::endl;
+
+    // Book a seat
+    manager.bookSeats("KILLER", "IMAX", "a1");
+    manager.bookSeats("KILLER", "IMAX", "a5");
+    manager.bookSeats("KILLER", "IMAX", "a7");
+
+    manager.bookSeats("KILLER", "IMAX", {"a8","a9","a10"});
+std::cout<<"\n-------------------------------------------------------------------"<<std::endl;
+
+    manager.getAllPlayingMovies();
+std::cout<<"\n-------------------------------------------------------------------"<<std::endl;
+
+    manager.getAvailableSeats("KILLER", "IMAX");
+std::cout<<"\n-------------------------------------------------------------------"<<std::endl;
+    manager.getTheatersShowingMovie("KILLER");
+    manager.getTheatersShowingMovie("Inception");
     return 0;
 }

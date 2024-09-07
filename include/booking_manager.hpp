@@ -11,6 +11,15 @@
 #include <thread>
 #include "theater.hpp"
 #include "movie.hpp"
+#include "observerbase.hpp"
+#include "event.hpp"
+#include "theaterevent.hpp"
+#include "bookingevent.hpp"
+#include "movieevent.hpp"
+#include "seatqueryevent.hpp"
+#include "movielistqueryevent.hpp"
+#include "theaterlistqueryevent.hpp"
+
 //This class & its functions are exposed to the other application for eg: main.cpp
 //It is purposefully made as singleton so that Only one instance of BookingManager can be present throughout the Program lifecycle
 class BookingManager {
@@ -45,6 +54,12 @@ public:
 
     // Function to get booked seats for a specific movie in a specific theater
     std::vector<std::shared_ptr<Seat>> getBookedSeats(const std::string& movieTitle, const std::string& theaterName) const;
+
+     // Register an observer
+    void registerObserver(std::shared_ptr<ObserverBase> observer);
+
+    // Remove an observer
+    void removeObserver(std::shared_ptr<ObserverBase> observer);
     
 private:
     // Private constructor to prevent instantiation
@@ -54,6 +69,12 @@ private:
     std::unordered_map<std::string, std::shared_ptr<Movie>> movies; //Maps movie title to shared pointer of Movie Object
     std::unordered_map<std::string, std::vector<std::shared_ptr<Theater>>> theaters;//Maps movie titles to Theaters(SHared pointers)
     mutable std::mutex mutex; // Mutex for thread safety
+
+    // List of observers
+    std::vector<std::shared_ptr<ObserverBase>> observers;
+    // Notify all observers about an event
+    void notify(Event* event) const;
+    
 };
 
 #endif // BOOKING_MANAGER_HPP
