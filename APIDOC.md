@@ -4,72 +4,110 @@ This API documentation provides a comprehensive overview of the BookingManager c
 
 ## CLASS OVERVIEW:
 
-The BookingManager class is a singleton class responsible for managing movie bookings.
-It provides functionalities to add movies and theaters, book seats, retrieve available and booked seats, and list all playing movies and the theaters showing a specific movie.
-This class is thread-safe, utilizing mutexes to protect shared resources.
+The `BookingManager` class is a singleton class responsible for managing movie bookings.
+It provides functionalities to add movies and theaters, book seats, retrieve available and booked seats, and list all playing movies and the theaters showing a specific movie. This class also registers/ removes observers like UI/CLI who will be notified about an event.
+All public methods of this class is thread-safe, utilizing mutexes to protect shared resources.
+## PRIVATE METHOD:
+`void notify(Event* event) const`
+* **Description:** This method is responsible for notifying all registered observers about an event. It is used internally by various public methods when a significant change occurs, such as adding a new movie, booking a seat, querying available seats or adding theater to a movie or showing all the playing movies currently.
+* **Parameters:**
+`Event* event`: A pointer to the `Event` object containing the details of the event that occurred.
+Usage
+This method is called internally by public methods (e.g., `addMovie`, `addTheater`, `bookSeats`) to notify all observers about specific events.
+The method iterates through all observers and invokes their update method with the event information.
+* **Thread Safety:**
+The notify method does not directly lock any resources but is always called from other methods that acquire the necessary mutex locks. Therefore, it is thread-safe within the context of its usage in `BookingManager`.
+
+  #### Example of Events
+  `MovieEvent`: When a new movie is added.
+
+  `TheaterEvent`: When a theater is added for a movie.
+
+  `BookingEvent`: When a seat is booked.
+
+  `SeatQueryEvent`: When available seats are queried.
+
+  `MovieListQueryEvent`: When the list of currently playing movies is queried.
+
+  `TheaterListQueryEvent`: When theaters showing a specific movie are queried.
 
 ## PUBLIC METHODS:
 `BookingManager& getInstance()`
 * **Description:** Implementation of Meyers Singleton through which a single instance of BookingManager is obtained.This ensures that throughout the lifecycle of the program only one instance of BookingManager exists to avoid duplicacy.
 
-* **Returns:** A reference to the singleton BookingManager instance (One & Only).
+* **Returns:** A reference to the singleton `BookingManager` instance (One & Only).
+
+`void registerObserver(std::shared_ptr<ObserverBase> observer)`
+
+* **Description:** Registers an observer that will be notified about booking-related events.
+* **Parameters:** `std::shared_ptr<ObserverBase> observer` : The observer to be registered.
+* **Returns:** None
+* **Thread Safety:** Uses a mutex to protect the observers list.
+
+`void removeObserver(std::shared_ptr<ObserverBase> observer)`
+
+* **Description:** Removes a previously registered observer from the observer list.
+* **Parameters:** `std::shared_ptr<ObserverBase> observer` : The observer to be removed.
+* **Returns:** None
+* **Thread Safety:** Uses a mutex to protect the observers list.
 
 `void addMovie(std::shared_ptr<Movie> movie)`
 
 * **Description:** Adds a new movie to the booking manager.
-* **Parameters:** movie: A shared_ptr to a Movie object to be added.
+* **Parameters:** `movie`: A shared_ptr to a Movie object to be added.
+* **Returns:** None
 
 `void addTheater(const std::string& movieTitle, std::shared_ptr<Theater> theater)`
 
 * **Description:** Associates a theater with a specific movie. This method also initializes seats for the specified movie in the given theater.
 * **Parameters:**
-  * movieTitle: The title of the movie.
+  * `movieTitle:` The title of the movie.
 theater: A shared_ptr to a Theater object to be associated with the movie.
 
 `bool bookSeats(const std::string& movieTitle, const std::string& theaterName, const std::string& seatId)`
 
 * **Description:** Books a single seat for a specific movie in a specific theater.
 * **Parameters:**
-     * movieTitle: The title of the movie.
-     * theaterName: The name of the theater.
-     * seatId: The ID of the seat to be booked.
+     * `movieTitle`: The title of the movie.
+     * `theaterName`: The name of the theater.
+     * `seatId`: The ID of the seat to be booked.
 * **Returns:** true if the seat is successfully booked; false otherwise.
 
 `bool bookSeats(const std::string& movieTitle, const std::string& theaterName, const std::vector<std::string>& seatIds)`
 
 * **Description:** Books multiple seats for a specific movie in a specific theater.This is an overloaded function.
 * **Parameters:**
-     * movieTitle: The title of the movie.
-     * theaterName: The name of the theater.
-     * seatIds: A vector of seat IDs to be booked.
+     * `movieTitle`: The title of the movie.
+     * `theaterName`: The name of the theater.
+     * `seatIds`: A vector of seat IDs to be booked.
 * **Returns:** true if all seats are successfully booked; false otherwise.
 
 `std::vector<std::shared_ptr<Seat>> getAvailableSeats(const std::string& movieTitle, const std::string& theaterName) const`
 * **Description:** Retrieves a list of all available seats for a particular movie in a particular theater.
 * **Parameters:**
-     * movieTitle: The title of the movie.
-     * theaterName: The name of the theater.
-* **Returns:** A vector of shared_ptr to Seat objects representing the available seats. Returns an empty vector if the movie or theater is not found.
+     * `movieTitle`: The title of the movie.
+     * `theaterName`: The name of the theater.
+* **Returns:** A vector of `shared_ptr` to `Seat` objects representing the available seats. Returns an empty vector if the movie or theater is not found.
 
 `std::vector<std::string> getAllPlayingMovies() const`
 * **Description:** Retrieves a list of titles for all movies currently managed by the booking system.
-* **Returns:** A vector of strings representing the titles of all playing movies.
+* **Returns:** A vector of `strings` representing the titles of all playing movies.
 
 `std::vector<std::string> getTheatersShowingMovie(const std::string& movieTitle) const`
 * **Description:** Retrieves a list of theater names showing a specific movie.
 * **Parameters:**
-  * movieTitle: The title of the movie.
-* **Returns:** A vector of strings representing the names of theaters showing the specified movie. Returns an empty vector if the movie is not found.
+  * `movieTitle`: The title of the movie.
+* **Returns:** A vector of `strings` representing the names of theaters showing the specified movie. Returns an empty vector if the movie is not found.
 
 `std::vector<std::shared_ptr<Seat>> getBookedSeats(const std::string& movieTitle, const std::string& theaterName) const`
 * **Description:** Retrieves a list of all booked seats for a particular movie in a particular theater.
 * **Parameters:**
-  * movieTitle: The title of the movie.
-  * theaterName: The name of the theater.
-* **Returns:** A vector of shared_ptr to Seat objects representing the booked seats. Returns an empty vector if the movie or theater is not found.
+  * `movieTitle`: The title of the movie.
+  * `theaterName`: The name of the theater.
+* **Returns:** A vector of `shared_ptr` to Seat objects representing the booked seats. Returns an empty vector if the movie or theater is not found.
 
 ### Thread Safety
-All public methods in the BookingManager class are thread-safe, utilizing mutexes to protect shared resources and ensure consistent state across multiple threads.
+All public methods in the `BookingManager` class are thread-safe, utilizing mutexes to protect shared resources and ensure consistent state across multiple threads.
 
 ### Usage Example
 ```C++
@@ -108,36 +146,62 @@ bool successval = manager.bookSeats("Fast & Furious", "Theater1:IMAX", "a1");
  }
 
 ```
-This example demonstrates how to get the BookingManager instance, add a movie and a theater,get currently playing movies, view and display the theaters showing a particular movie and book a seat and view available Seats for a particular movie. For more detailed examples refer **main.cpp** file.
+This example demonstrates how to get the `BookingManager` instance, add a movie and a theater,get currently playing movies, view and display the theaters showing a particular movie and book a seat and view available Seats for a particular movie. For more detailed examples refer `main.cpp` file.
 
-### Additional Wrapper Functions in **main.cpp** file
-There are some reference wrapper functions which can be used by thread functionality to pass the data to the BookingManager class API. Also, these functions can be direclty used to print the returned values from BookingManager APIs.They are as following:
+### Additional Wrapper Functions in `main.cpp` file
+There are some reference wrapper functions which can be used by thread functionality to pass the data to the `BookingManager` class API. Also, these functions can be direclty used to print the returned values from BookingManager APIs.They are as following:
 
 `void bookSingleSeat(const std::string& movieTitle, const std::string& theaterName, const std::string& seatId)`
 
 * **Description:** Wrapper Function to book a single seat. It uses bookSeats API of BookingManager class
 * **Parameters:**
-    * movieTitle: The title of the movie.
-    * theaterName: The name of the theater.
-    * seatID: Single seatID to be booked
+    * `movieTitle:` The title of the movie.
+    * `theaterName:` The name of the theater.
+    * `seatID:` Single seatID to be booked
 
 `void bookMultipleSeats(const std::string& movieTitle, const std::string& theaterName, const std::vector<std::string>& seatIds)`
 
 * **Description:** Wrapper Function to book multiple seats. It uses overloaded bookSeats API of BookingManager class
 * **Parameters:**
-    * movieTitle: The title of the movie.
-    * theaterName: The name of the theater.
-    * seatIDs: vector of multiple seats to be booked
+    * `movieTitle:` The title of the movie.
+    * `theaterName:` The name of the theater.
+    * `seatIds:` vector of multiple seats to be booked
 
 `void getAvailableSeats(const std::string& movieTitle, const std::string& theaterName)`
 
 * **Description:** Wrapper Function to get & display the number of available seats & their IDs
 * **Parameters:**
-    * movieTitle: The title of the movie.
-    * theaterName: The name of the theater.
+    * `movieTitle:` The title of the movie.
+    * `theaterName:` The name of the theater.
 
 `void setupBookingSystem()`
-* **Description:** Helper function to add movies and theaters. It uses addMovie() and addTheater() API of  BookingManager Class to create new movies & adding those movies in the theaters
+* **Description:** Helper function to add movies and theaters. It uses `addMovie()` and `addTheater()` API of  `BookingManager` Class to create new movies & adding those movies in the theaters
+
+# Event Interface API Documentation:
+## Overview
+The `Event` interface defines a base class for event objects in a system. It enforces the requirement for all events to specify a type. This interface is designed to be extended by concrete event classes, where each event can represent specific occurrences or actions within the application.
+## Class: `Event`
+## Description:
+The `Event` class is an abstract base class that other event types should derive from. It mandates that any subclass must implement the method `getType`, which is responsible for providing the event's type as a `string`. This type can be used to identify and differentiate between various event categories in a system.
+## Public Member Functions:
+1. `virtual ~Event()`
+* **Description:** The virtual destructor ensures proper cleanup of derived classes when an event object is deleted through a pointer to Event.
+* **Declaration:**
+```C++
+virtual ~Event() = default;
+```
+* **Parameters:** None.
+* **Return Value:** None.
+
+2. `virtual std::string getType() const = 0`
+* **Description:** This pure virtual function must be overridden by any concrete event class. It provides the type of the event as a string.
+* **Declaration:**
+```C++
+virtual std::string getType() const = 0;
+```
+* **Parameters:** None.
+* **Return Value:** A `std::string` representing the type of the event.
+
 
 # ObserverBase Interface API Documentation:
 ## Overview
