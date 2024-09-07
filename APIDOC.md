@@ -2,7 +2,7 @@
 
 This API documentation provides a comprehensive overview of the BookingManager class and its functionality, ensuring developers can effectively integrate it into their applications.
 
-## CLASS OVERVIEW:
+## CLASS OVERVIEW :
 
 The `BookingManager` class is a singleton class responsible for managing movie bookings.
 It provides functionalities to add movies and theaters, book seats, retrieve available and booked seats, and list all playing movies and the theaters showing a specific movie. This class also registers/ removes observers like UI/CLI who will be notified about an event.
@@ -270,48 +270,48 @@ Similar to the below functions your own CLI/ UI class should have the functions.
 `void update(Event* event)`
 * **Description:** Overrides the ObserverBase class's update method. This method receives an event and calls the appropriate handler based on the event's type.
 * **Parameters:**
-  * **event:** A pointer to the Event object. This is a polymorphic object representing different event types such as MovieEvent, TheaterEvent, BookingEvent, etc.
-  * **Returns:** void
+  * `Event* event`: A pointer to the Event object. This is a polymorphic object representing different event types such as MovieEvent, TheaterEvent, BookingEvent, etc.
+* **Returns:** void
 
 ## Private Methods :
 `void handleMovieEvent(MovieEvent* event)`
 * **Description:** Handles updates related to movies in the UI. Typically triggered when a MovieEvent is received.
 * **Parameters:**
-  * **event:** A pointer to the MovieEvent object, which contains movie-specific information such as movie title and description.
-  * **Returns:** void
+  * `MovieEvent* event`: A pointer to the MovieEvent object, which contains movie-specific information such as movie title and description.
+* **Returns:** void
 
 `void handleTheaterEvent(TheaterEvent* event)`
 * **Description:** Handles updates related to theaters in the UI. Triggered when a TheaterEvent is received, and provides information such as theater name and movie title.
 * **Parameters:**
-  * **event:** A pointer to the TheaterEvent object, which contains details about the theater and movie.
-  * **Returns:** void
+  * `TheaterEvent* event`: A pointer to the TheaterEvent object, which contains details about the theater and movie.
+* **Returns:** void
 
 `void handleBookingEvent(BookingEvent* event)`
 * **Description:** Handles updates related to bookings in the UI. Triggered when a BookingEvent is received, and provides details about the movie, theater, and seat.
 * **Parameters:**
-  * **event:** A pointer to the BookingEvent object, which contains booking details like movie title, theater name, and seat ID.
-  * **Returns:** void
+  * `BookingEvent* event`: A pointer to the BookingEvent object, which contains booking details like movie title, theater name, and seat ID.
+* **Returns:** void
 
 `void handleSeatQueryEvent(const SeatQueryEvent* event)`
 
 * **Description:** Handles updates related to seat availability in the UI. Triggered when a SeatQueryEvent is received, displaying information about available seats for a movie in a particular theater.
 * **Parameters:**
-  * **event:** A constant pointer to the SeatQueryEvent object, which contains details about seat availability, movie title, and theater name.
-  * **Returns:** void
+  * `const SeatQueryEvent* event`: A constant pointer to the SeatQueryEvent object, which contains details about seat availability, movie title, and theater name.
+* **Returns:** void
 
 `void handleMovieListQueryEvent(const MovieListQueryEvent* event)`
 
 * **Description:** Handles updates related to movie listings in the UI. Triggered when a MovieListQueryEvent is received, displaying the list of currently playing movies.
 * **Parameters:**
-  * **event:** A constant pointer to the MovieListQueryEvent object, which contains a list of currently available movie titles.
-  * **Returns:** void
+  * `const MovieListQueryEvent* event`: A constant pointer to the MovieListQueryEvent object, which contains a list of currently available movie titles.
+* **Returns:** void
 
 `void handleTheaterListQueryEvent(const TheaterListQueryEvent* event)`
 
 * **Description:** Handles updates related to theater listings in the UI. Triggered when a TheaterListQueryEvent is received, showing the list of theaters that are screening a specific movie.
 * **Parameters:**
-  * **event:** A constant pointer to the TheaterListQueryEvent object, which contains the movie title and a list of theater names.
-  * **Returns:** void
+  * `const TheaterListQueryEvent* event`: A constant pointer to the TheaterListQueryEvent object, which contains the movie title and a list of theater names.
+* **Returns:** void
 
 ## Example Usage: In `main.cpp`
 ```C++
