@@ -7,35 +7,10 @@ If you are directly calling the library functions from another embedded/CLI appl
 ```c++
 #include "booking_manager.hpp"
 ```
-To compile & run the application refer below. There are **Five ways** as following:
+To compile & run the application refer below. There are **Four ways** as following:
 
-### 1. Steps to Compile after integrating with other embedded/CLI application (WITHOUT USING MAKEFILE) in Linux/Unix:
 
-Clone the repository. go inside the repository folder.
-Open a terminal.
-
-  * a) To create the library **libbooking.so** do the following
-```bash
-g++ -fPIC -shared -o libbooking.so src/seat.cpp src/theater.cpp src/movie.cpp src/movie_factory.cpp src/theater_factory.cpp src/booking_manager.cpp -I./include
-```
-  * b) Link the library to your application (Instead of main.cpp use your cpp file where you want to call APIS):
-```bash
- g++ -o booking_app main.cpp -L. -lbooking -I./include
-```
-  * c) Copy the generated library to local lib:
-```bash
- sudo cp libbooking.so /usr/local/lib/
-```
-  * d) After copying, you may need to update the linker cache with:
-```bash
-  sudo ldconfig
-```
-  * e) Run the application using :
-```bash
- ./booking_app
-```
-
-### 2. Steps to run the application WITH MAKEFILE in Linux/Unix:
+### 1. Steps to run the application WITH MAKEFILE in Linux/Unix:
 Clone the repository & go inside the repository project folder , then modify the Makefile inside the project as following:
 change the following line inside Makefile
 
@@ -60,7 +35,7 @@ make clean
  ./booking_app
  ```
 
-### 3. Steps to run in Windows Operating system:
+### 2. Steps to run in Windows Operating system:
 * ### Prerequisites :
  * g++ version: You must have the following g++ version in your windows system , open a terminal from anywhere and type g++ --version as below
  ```bash
@@ -88,7 +63,7 @@ There is NO WARRANTY, to the extent permitted by law.
   * Please refer the **main.cpp** and **APIDOC.md** file for how to invoke API functions
 
 * ### Steps :
-  * Clone the repository & go inside the repository project folder, replace all the content of the  **Makefile** with content of **Makefile-STABLE FOR WINDOWS**
+  * Clone the repository & go inside the repository project folder,
   * You can Modify the Makefile inside the project as following: change the following line inside Makefile
   MAIN_SRC = main.cpp
 
@@ -111,11 +86,11 @@ There is NO WARRANTY, to the extent permitted by law.
    .\booking_app.exe
    ```
 
-### 4. Steps to run the code irrespective of Operating system:
-  * Clone the repository & go inside the repository project folder, replace all the content of the  **Makefile** with content of **Makefile-COMBINED**
+### 3. Steps to run the code irrespective of Operating system:
+  * Clone the repository & go inside the repository project folder,
   * If you **meet the Prerequisites mentioned in Step 3 for WINDOWS OS**, then
 
-  * open any terminal for eg: powershell/ Linux bash depending upon OS inside the repository project folder
+  * Open any terminal for eg: powershell/ Linux bash depending upon OS inside the repository project folder
 
   * Enter the Clean command :
   ```bash
@@ -134,7 +109,7 @@ There is NO WARRANTY, to the extent permitted by law.
    ./booking_app
    ```
 
-### 5. Steps to build & run the code using conan
+### 4. Steps to build & run the code using conan
   * Clone the repository and go inside the repository project folder,
   * In order to run the code using conan , you must have the conan & Cmake installed in your OS.
   * You must have the following conan & Cmake version installed to your system. Please check the conan & Cmake version by opening any terminal for eg: Linux
