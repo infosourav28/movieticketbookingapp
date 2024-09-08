@@ -35,8 +35,9 @@ all: $(LIBRARY) $(TARGET)
 $(LIBRARY): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LIB_LDFLAGS) -o $(LIBRARY) $(OBJ)
 
-$(TARGET): $(MAIN_OBJ) $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(MAIN_OBJ) $(OBJ) $(LDFLAGS)
+$(TARGET): $(MAIN_OBJ) $(LIBRARY)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(MAIN_OBJ) $(LDFLAGS) -lbooking
+
 
 install: $(LIBRARY)
 ifeq ($(OS),Windows_NT)
