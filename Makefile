@@ -10,7 +10,7 @@ CXXFLAGS = -std=c++11 -Wall -Wextra -I./include
 ifeq ($(OS),Windows_NT)
     LIBRARY = booking.dll
     LDFLAGS = -L. -lbooking
-    INSTALL_DIR = C:/Windows/System32
+    INSTALL_DIR = $(HOME)\libs
     LIB_LDFLAGS = -shared
 else
     UNAME := $(shell uname -s)
@@ -39,7 +39,9 @@ $(TARGET): $(MAIN_OBJ) $(OBJ)
 
 install: $(LIBRARY)
 ifeq ($(OS),Windows_NT)
-	cmd /c copy $(LIBRARY) $(INSTALL_DIR)
+	@echo "Running: mkdir $(INSTALL_DIR) && copy $(LIBRARY) $(INSTALL_DIR)"
+	# Use PowerShell for directory creation and file copy
+	powershell -Command "if (!(Test-Path -Path '$(INSTALL_DIR)')) { New-Item -Path '$(INSTALL_DIR)' -ItemType Directory }; Copy-Item -Path '$(LIBRARY)' -Destination '$(INSTALL_DIR)'"
 else ifeq ($(UNAME), Linux)
 	sudo cp $(LIBRARY) $(INSTALL_DIR)
 	sudo ldconfig
