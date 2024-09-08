@@ -25,7 +25,7 @@
     #ifdef BOOKING_EXPORTS
         #define BOOKING_API __declspec(dllexport)
     #else
-        #define BOOKING_API __declspec(dllimport)
+        #define BOOKING_API 
     #endif
 #else
     #define BOOKING_API __attribute__((visibility("default")))
