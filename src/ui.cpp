@@ -97,3 +97,6 @@ void UI::handleSeatQueryEvent(const SeatQueryEvent* event) {
         }
     }
 }
+
+//Desctructor
+UI::~UI(){}

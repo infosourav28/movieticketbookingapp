@@ -3,10 +3,21 @@
 
 #include "booking_manager.hpp"
 
-class UI : public ObserverBase {
+#ifdef _WIN32
+    #ifdef BOOKING_EXPORTS
+        #define BOOKING_API __declspec(dllexport)
+    #else
+        #define BOOKING_API __declspec(dllimport)
+    #endif
+#else
+    #define BOOKING_API __attribute__((visibility("default")))
+#endif
+
+class BOOKING_API UI : public ObserverBase {
 public:
     // Override the update method to handle different event types
     void update(Event* event) override;
+	~UI();
 
 private:
     // Handling MovieEvent in the UI
