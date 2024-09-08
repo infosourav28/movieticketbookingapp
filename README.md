@@ -11,12 +11,12 @@ To compile & run the application refer below. There are **Four ways** as followi
 
 
 ### 1. Steps to run the application WITH MAKEFILE in Linux/Unix:
-Clone the repository & go inside the repository project folder , then modify the Makefile inside the project as following:
+Clone the repository & go inside the repository project folder , then you can  modify the Makefile inside the project as following:
 change the following line inside Makefile
 
 "MAIN_SRC = main.cpp"
 
-Change it to your .cpp file as per your application from where you want to call Library APIs (for example: myapp.cpp)
+Change it to your .cpp file as per your application from where you want to call Library APIs (for example: myapp.cpp). You should contain your main function.
 ```make
 MAIN_SRC = myapp.cpp
 ```
@@ -67,7 +67,7 @@ There is NO WARRANTY, to the extent permitted by law.
   * You can Modify the Makefile inside the project as following: change the following line inside Makefile
   MAIN_SRC = main.cpp
 
-  * Change it to your .cpp file as per your application from where you want to call Library APIs (for example: myapp.cpp)
+  * You can change it to your .cpp file as per your application from where you want to call Library APIs (for example: myapp.cpp). It should contain your main function.
   ```make
   MAIN_SRC = myapp.cpp
   ```
@@ -88,7 +88,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 ### 3. Steps to run the code irrespective of Operating system:
   * Clone the repository & go inside the repository project folder,
-  * If you **meet the Prerequisites mentioned in Step 3 for WINDOWS OS**, then
+  * If you **meet the Prerequisites mentioned in Step 2 for WINDOWS OS**, then
 
   * Open any terminal for eg: powershell/ Linux bash depending upon OS inside the repository project folder
 
