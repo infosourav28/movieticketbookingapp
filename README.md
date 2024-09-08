@@ -1,4 +1,4 @@
-### This application creates a library (libbooking.so in Linux/booking.dll in Windows) which can be used/integrated with an embedded/CLI application
+### This application creates a library (libbooking.so in Linux / booking.dll in Windows) which can be used/integrated with an embedded/CLI application
 
 There is also a main function in **main.cpp** file which can be used as a reference/guide for API invocation. For detailed API documentation please refer file
 * **APIDOC.md** :  [here](./APIDOC.md).
@@ -7,6 +7,8 @@ If you are directly calling the library functions from another embedded/CLI appl
 ```c++
 #include "booking_manager.hpp"
 ```
+To directly register your UI/CLI to add movies , theaters , book a seat/ multiple seats , see the currently playing movies etc. you need to implement the `ObserverBase` Interface as shown as an example `UI` in `main.cpp`. Please refer `APIDOC.md` for detailed implementation of UI/CLI (UI Class API Documentation).
+
 To compile & run the application refer below. There are **Four ways** as following:
 
 
@@ -16,7 +18,7 @@ change the following line inside Makefile
 
 "MAIN_SRC = main.cpp"
 
-Change it to your .cpp file as per your application from where you want to call Library APIs (for example: myapp.cpp). You should contain your main function.
+Change it to your .cpp file as per your application from where you want to call Library APIs (for example: myapp.cpp). It should contain your main function.
 ```make
 MAIN_SRC = myapp.cpp
 ```
@@ -33,6 +35,11 @@ make clean
 * Run the application :
 ```bash
  ./booking_app
+ ```
+
+* To make the library available to all you can run the following command in the Linux terminal. It will copy the `libbooking.so` to `/usr/local/lib`.
+ ```bash
+ make install
  ```
 
 ### 2. Steps to run in Windows Operating system:
@@ -81,10 +88,15 @@ There is NO WARRANTY, to the extent permitted by law.
   ```bash
    make
    ```
-  * Run the application :Please Ensure that **booking.dll** is either in the same directory as your executable
+  * Run the application :Please Ensure that `booking.dll` is either in the same directory as your executable
   ```bash
    .\booking_app.exe
    ```
+
+  * To make the library available to all you can run the following command in the Powershell terminal. It will create a folder (if not already exists) `/home/UserName/libs` in your drive where you cloned the project and copy the `booking.dll` there.
+  ```bash
+  make install
+  ```
 
 ### 3. Steps to run the code irrespective of Operating system:
   * Clone the repository & go inside the repository project folder,
@@ -133,13 +145,13 @@ There is NO WARRANTY, to the extent permitted by law.
 
   #### For Linux :
 
-  * There is a script **build.sh** ([contents here](./build.sh)) located inside the repository which has conan install , build and package commands inside it.
+  * There is a script `build.sh` ([contents here](./build.sh)) located inside the repository which has conan install , build and package commands inside it.
   * Run the following commands for building.
   ```bash
   chmod +x build.sh
   ./build.sh
   ```
-  It will create a conan package **movieticketbookingapi/0.2@user/channel** in a Package Folder something similar like this :
+  It will create a conan package `movieticketbookingapi/0.2@user/channel` in a Package Folder something similar like this :
   ```bash
 
   Package folder ~/.conan2/p/b/movied5b372be072e9/p
@@ -151,7 +163,7 @@ There is NO WARRANTY, to the extent permitted by law.
   ./build/booking_app
 
   ```
-  There will be shared Library (**libbooking.so**) which will be generated inside **build** folder and copied to the **bin** folder of Package Folder.
+  There will be shared Library `libbooking.so` which will be generated inside **build** folder and copied to the **bin** folder of Package Folder.
   ```bash
 
   sourav@LAPTOP-G862M1F7:~$ ls ~/.conan2/p/b/movied5b372be072e9/p/bin
@@ -161,12 +173,12 @@ There is NO WARRANTY, to the extent permitted by law.
 
   #### For WINDOWS :
 
-  * There is a script **build.bat** ([contents here](./build.bat)) located inside the repository which has conan install , build and package commands inside it.
+  * There is a script `build.bat` ([contents here](./build.bat)) located inside the repository which has conan install , build and package commands inside it.
   * Run the following commands for building.
   ```bash
   .\build.bat
   ```
-  It will create a conan package **movieticketbookingapi/0.2@user/channel** in a Package Folder something similar like this :
+  It will create a conan package `movieticketbookingapi/0.2@user/channel` in a Package Folder something similar like this :
   ```bash
   Package folder C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p
   ```
@@ -174,9 +186,9 @@ There is NO WARRANTY, to the extent permitted by law.
   ```bash
   .\build\booking_app.exe
   ```
-  There will be shared Library (**libbooking.dll**) which will be copied to  the **bin** folder of Package Folder.
+  There will be shared Library `libbooking.dll` which will be copied to  the **bin** folder of Package Folder.
   Navigate to the Package folder
   ```bash
   C:\Users\Sourav Pal\.conan2\p\b\movie7f7716a877c68\p\bin
   ```
-  and there will be shared library libbooking.dll .
+  and there will be shared library `libbooking.dll` .
