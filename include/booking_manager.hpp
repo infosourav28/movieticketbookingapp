@@ -1,6 +1,7 @@
 #ifndef BOOKING_MANAGER_HPP
 #define BOOKING_MANAGER_HPP
 
+
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -20,9 +21,19 @@
 #include "movielistqueryevent.hpp"
 #include "theaterlistqueryevent.hpp"
 
+#ifdef _WIN32
+    #ifdef BOOKING_EXPORTS
+        #define BOOKING_API __declspec(dllexport)
+    #else
+        #define BOOKING_API __declspec(dllimport)
+    #endif
+#else
+    #define BOOKING_API __attribute__((visibility("default")))
+#endif
+
 //This class & its functions are exposed to the other application for eg: main.cpp
 //It is purposefully made as singleton so that Only one instance of BookingManager can be present throughout the Program lifecycle
-class BookingManager {
+class BOOKING_API BookingManager {
 public:
     // Delete copy constructor and copy assignment operator
     BookingManager(const BookingManager&) = delete;

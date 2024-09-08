@@ -13,21 +13,24 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Define sources and include directories
 file(GLOB SOURCES
-    main.cpp
     src/*.cpp
 )
 
 file(GLOB HEADERS
     include/*.hpp
-	include/booking_manager.hpp
 )
 
 option(BUILD_SHARED_LIBS "Build shared libraries" ${BUILD_SHARED_LIBS})
 
 # Add shared library option
-add_library(booking ${SOURCES} ${HEADERS})
+add_library(booking ${SOURCES})
 
-add_executable(booking_app ${SOURCES} ${HEADERS})
+# Handle Windows export macro for shared libraries
+if(WIN32 AND BUILD_SHARED_LIBS)
+    target_compile_definitions(booking PRIVATE BOOKING_EXPORTS)
+endif()
+
+add_executable(booking_app main.cpp)
 
 # Link libraries if necessary
 target_link_libraries(booking_app booking)

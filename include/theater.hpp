@@ -7,7 +7,17 @@
 #include <unordered_map>
 #include "seat.hpp"
 
-class Theater {
+#ifdef _WIN32
+    #ifdef BOOKING_EXPORTS
+        #define BOOKING_API __declspec(dllexport)
+    #else
+        #define BOOKING_API __declspec(dllimport)
+    #endif
+#else
+    #define BOOKING_API __attribute__((visibility("default")))
+#endif
+
+class BOOKING_API Theater {
     std::string name;
     std::unordered_map<std::string, std::vector<std::shared_ptr<Seat>>> movieSeats; // Maps movie titles to seats
 
