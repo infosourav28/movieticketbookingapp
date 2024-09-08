@@ -12,6 +12,7 @@ ifeq ($(OS),Windows_NT)
     LDFLAGS = -L. -lbooking
     INSTALL_DIR = $(HOME)\libs
     LIB_LDFLAGS = -shared
+	CXXFLAGS += -DBOOKING_EXPORTS  #this line for Windows to define BOOKING_EXPORTS
 else
     UNAME := $(shell uname -s)
     ifeq ($(UNAME), Linux)
